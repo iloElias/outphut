@@ -1,0 +1,18 @@
+{
+    "name": "ilias/outphut",
+    "description": "PHP library for custom outputs",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Ilias\\Outphut\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "iloElias",
+            "email": "murilo7456@gmail.com"
+        }
+    ],
+    "require": {}
+}
