@@ -1,17 +1,21 @@
 <?php
 
-namespace Ilias\Outphut\Model;
+namespace Ilias\Outphut\View;
 
 use Ilias\Outphut\Abstract\Content;
+use Ilias\Outphut\Enum\Brightness;
 use Ilias\Outphut\Enum\Color;
 use Ilias\Outphut\Enum\TextStyle;
 use Ilias\Outphut\Model\Color as ColorModel;
+use Ilias\Outphut\Model\Style;
 
 class Text extends Content
 {
   protected string $text = "";
   protected string|null $color = null;
+  protected string|null $colorBrightness = null;
   protected string|null $backgroundColor = null;
+  protected string|null $backgroundBrightness = null;
   protected string|null $styles = null;
 
   /**
@@ -22,7 +26,7 @@ class Text extends Content
    * @param Color|null $background
    * @param TextStyle[] $styles
    */
-  public function __construct(string|array|Text $text, string $separator = "", Color $color = null, Color $background = null, array $styles = [])
+  public function __construct(string|array|Text $text, string $separator = "", Color $color = null, Color $background = null, array $styles = [], Brightness $colorBrightness = null, Brightness $backgroundBrightness = null)
   {
     if (!empty($color)) {
       $fromColor = ColorModel::fromColor($color)[0];
@@ -39,7 +43,15 @@ class Text extends Content
       }
       $this->styles = implode("", $fromStyle);
     }
-    $this->text = implode("{$this->backgroundColor}{$this->color}{$this->styles}" . Style::CLEAR . "{$separator}", $this->prepareText($text));
+    if (!empty($colorBrightness)) {
+      $fromBrightness = ColorModel::fromColor($colorBrightness)[0];
+      $this->colorBrightness = "\e[{$fromBrightness}m";
+    }
+    if (!empty($backgroundBrightness)) {
+      $fromBrightness = ColorModel::fromColor($backgroundBrightness)[1];
+      $this->backgroundBrightness = "\e[{$fromBrightness}m";
+    }
+    $this->text = implode("{$this->backgroundColor}{$this->backgroundBrightness}{$this->color}{$this->colorBrightness}{$this->styles}" . Style::CLEAR . "{$separator}", $this->prepareText($text));
   }
 
   public function prepareText(string|array|Text $text): array
@@ -63,9 +75,9 @@ class Text extends Content
   {
     return "{$this->getText()}" . Style::CLEAR;
   }
-  
+
   public function getText(): string
   {
-    return "{$this->backgroundColor}{$this->color}{$this->styles}{$this->text}";
+    return "{$this->backgroundColor}{$this->backgroundBrightness}{$this->color}{$this->colorBrightness}{$this->styles}{$this->text}";
   }
 }

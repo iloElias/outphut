@@ -1,8 +1,9 @@
 <?php
 
+use Ilias\Outphut\Core\Outphut;
 use Ilias\Outphut\Enum\Color;
-use Ilias\Outphut\Model\Scaffold;
-use Ilias\Outphut\Model\Text;
+use Ilias\Outphut\View\Scaffold;
+use Ilias\Outphut\View\Text;
 
 require_once "./vendor/autoload.php";
 
@@ -15,4 +16,6 @@ $message = new Text(["Message: ", $text, "!"], "", Color::WHITE, Color::GREEN);
 
 $container = new Scaffold($message , Color::BLACK);
 
-echo "{$container}\n";
+$terminalSize = Outphut::getTerminalWidth();
+
+echo "{$terminalSize}\n";

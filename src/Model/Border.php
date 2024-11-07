@@ -2,29 +2,31 @@
 
 namespace Ilias\Outphut\Model;
 
-class Border
-{
-  public readonly int $topBorderSize;
-  public readonly int $rightBorderSize;  
-  public readonly int $bottomBorderSize;
-  public readonly int $leftBorderSize;
+use Ilias\Outphut\Abstract\Size;
 
-  public function __construct(int $borderSize = null, int $borderVerticalSize = null, int $borderBottomSize = null, int $borderLeftSize = null) {
+class Border extends Size
+{
+  public readonly float $topBorderSize;
+  public readonly float $rightBorderSize;  
+  public readonly float $bottomBorderSize;
+  public readonly float $leftBorderSize;
+
+  public function __construct(float $borderSize = null, float $borderVerticalSize = null, float $borderBottomSize = null, float $borderLeftSize = null) {
     if (!empty($borderSize)) {
       $this->topBorderSize = $borderSize;
-      $this->rightBorderSize = $borderSize;
+      $this->rightBorderSize = $this->adjustWidth($borderSize);
       $this->bottomBorderSize = $borderSize;
-      $this->leftBorderSize = $borderSize;
+      $this->leftBorderSize = $this->adjustWidth($borderSize);
     }
     if (!empty($borderVerticalSize)) {
-      $this->rightBorderSize = $borderVerticalSize;
-      $this->leftBorderSize = $borderVerticalSize;
+      $this->topBorderSize = $borderVerticalSize;
+      $this->bottomBorderSize = $borderVerticalSize;
     }
     if (!empty($borderBottomSize)) {
       $this->bottomBorderSize = $borderBottomSize;
     }
     if (!empty($borderLeftSize)) {
-      $this->leftBorderSize = $borderLeftSize;
+      $this->leftBorderSize = $this->adjustWidth($borderLeftSize);
     }
   }
 }

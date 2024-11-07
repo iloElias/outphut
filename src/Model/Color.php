@@ -2,6 +2,7 @@
 
 namespace Ilias\Outphut\Model;
 
+use Ilias\Outphut\Enum\Brightness;
 use Ilias\Outphut\Enum\Color as ColorEnum;
 
 class Color
@@ -25,7 +26,7 @@ class Color
     return (string)$value;
   }
 
-  public static function fromColor(ColorEnum $color): array
+  public static function fromColor(ColorEnum|Brightness $color): array
   {
     return explode(",", $color->value);
   }

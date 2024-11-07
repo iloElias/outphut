@@ -1,9 +1,12 @@
 <?php
 
+use Ilias\Outphut\Enum\Brightness;
 use Ilias\Outphut\Enum\Color;
 use Ilias\Outphut\Enum\TextStyle;
-use Ilias\Outphut\Model\Scaffold;
-use Ilias\Outphut\Model\Text;
+use Ilias\Outphut\Model\Border;
+use Ilias\Outphut\Model\Size;
+use Ilias\Outphut\View\Scaffold;
+use Ilias\Outphut\View\Text;
 
 require_once "./vendor/autoload.php";
 
@@ -75,9 +78,20 @@ function debugText()
 
 function debugScaffold()
 {
-  $smallText = new Text("Small Example");
+  $smallText = new Text("Small Example", "", null, Color::BLACK);
   $mediumText = new Text("Medium Example Text");
   $bigText = new Text("Big Example Text for Scaffolding");
 
-  echo new Scaffold($smallText, Color::BRIGHT_BLACK, null, null, );
+  $border = new Border(1);
+  $size = new Size(15, 1);
+  $border;
+
+  echo "{$border->leftBorderSize}\n";
+
+  echo new Scaffold($smallText, Color::BRIGHT_BLACK, null, $size, null, null, $border) . PHP_EOL;
+  // echo new Scaffold($mediumText, Color::BRIGHT_BLACK, null, $size, null, null, $border) . PHP_EOL;
+  // echo new Scaffold($bigText, Color::BRIGHT_BLACK, null, $size, null, null, $border) . PHP_EOL;
 }
+
+// debugText();
+debugScaffold();
