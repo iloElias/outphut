@@ -2,6 +2,7 @@
 
 use Ilias\Outphut\Enum\Color;
 use Ilias\Outphut\Enum\TextStyle;
+use Ilias\Outphut\Model\Scaffold;
 use Ilias\Outphut\Model\Text;
 
 require_once "./vendor/autoload.php";
@@ -77,4 +78,6 @@ function debugScaffold()
   $smallText = new Text("Small Example");
   $mediumText = new Text("Medium Example Text");
   $bigText = new Text("Big Example Text for Scaffolding");
+
+  echo new Scaffold($smallText, Color::BRIGHT_BLACK, null, null, );
 }
